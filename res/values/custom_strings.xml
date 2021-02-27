@@ -32,4 +32,7 @@
     <string name="google_folder_title" translatable="false">Google</string>
     <string name="pref_suggestions_title">Suggestions</string>
     <string name="pref_suggestions_summary">For all apps and Home screen</string>
+
+    <!-- Icon size -->
+    <string name="icon_size_title">Icon size</string>
 </resources>
