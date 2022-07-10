@@ -56,6 +56,8 @@ import com.android.launcher3.model.WidgetsModel;
 import com.android.launcher3.states.RotationHelper;
 import com.android.launcher3.uioverrides.plugins.PluginManagerWrapper;
 
+import com.android.launcher3.lineage.LineageUtils;
+import com.android.launcher3.lineage.trust.TrustAppsActivity;
 import java.util.Collections;
 import java.util.List;
 
@@ -72,6 +74,9 @@ public class SettingsActivity extends FragmentActivity
 
     private static final String DEVELOPER_OPTIONS_KEY = "pref_developer_options";
     private static final String FLAGS_PREFERENCE_KEY = "flag_toggler";
+    public static final String KEY_TRUST_APPS = "pref_trust_apps";
+
+
 
     private static final String NOTIFICATION_DOTS_PREFERENCE_KEY = "pref_icon_badging";
 
@@ -274,6 +279,17 @@ public class SettingsActivity extends FragmentActivity
                     // Only show flag toggler UI if this build variant implements that.
                     return FeatureFlags.showFlagTogglerUi(getContext());
 
+                case KEY_TRUST_APPS:
+                    preference.setOnPreferenceClickListener(p -> {
+                        LineageUtils.showLockScreen(getActivity(),
+                                getString(R.string.trust_apps_manager_name), () -> {
+                            Intent intent = new Intent(getActivity(), TrustAppsActivity.class);
+                            startActivity(intent);
+                        });
+                        return true;
+                    });
+                    return true;
+                    
                 case DEVELOPER_OPTIONS_KEY:
                     mDeveloperOptionPref = preference;
                     return updateDeveloperOption();
